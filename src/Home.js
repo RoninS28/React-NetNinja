@@ -1,4 +1,5 @@
 import { useState } from "react"
+import BlogList from "./BlogList";
 
 const Home = () => {
     // blogs is an array of blogs
@@ -11,13 +12,8 @@ const Home = () => {
 
     return (
         <div className="home">
-            {blogs.map((blog) => (
-                <div className="blog-preview" key={blog.id}> {/*key is compulsory so that react can keep track of items*/}
-                    <h2>{blog.title}</h2>
-                    <p>Written by {blog.author}</p>
-
-                </div>
-            ))}
+            {/* Props are used to send data from one component to another */}
+            <BlogList blogs={blogs} title="All My Blogs!" />
 
         </div>
     );
