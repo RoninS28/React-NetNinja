@@ -3,39 +3,27 @@ import BlogList from "./BlogList";
 
 const Home = () => {
 
-
-    const [name, setName] = useState('bunty');
-
-
-
     // blogs is an array of blogs
-    const [blogs, setBlogs] = useState([
-        { title: 'My new website', body: 'lorem ipsum ...', author: "mario", id: 1 },
-        { title: 'Welcome party', body: 'lorem ipsum ...', author: "bunty", id: 2 },
-        { title: 'Web dev top tips', body: 'lorem ipsum ...', author: "mario", id: 3 },
+    const [blogs, setBlogs] = useState(null);
 
-    ]);
 
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id);
-        setBlogs(newBlogs);
-    }
-    useEffect(() => {//this function is called whenever usestate related data is rendered. First is triggered at the start and then whenever re-rendered
-        // used for thigns such as fetch data, update elsewhere, etc
-        console.log('use effect triggered');
-    })
-    useEffect(() => {//this function is called whenever usestate related data is rendered. First is triggered at the start and then whenever re-rendered
-        // used for thigns such as fetch data, update elsewhere, etc
-        console.log('use effect triggered');
-    }, [name]);//this is called adding a dependency. If you pass empty [], then useEffect will get triggered at the beginning only
+    useEffect(() => {
+        fetch('http://localhost:8000/blogs').then(res => {
+            // res is not the output data but the response of the server
+            return res.json();//this is async
+        }).then((data) => {//here we get our data
+            setBlogs(data);
 
-    // useEffect = 
+        });
+    }, []);//*here we pass an empty dependency, so that blogs are set only on initial render
+
     return (
         <div className="home">
             {/* Props are used to send data from one component to another */}
-            <BlogList blogs={blogs} title="All My Blogs!" handleDelete={handleDelete} />
-            <button onClick={() => { setName('rohan') }}>The Name's {name}</button>
-            {/* <BlogList blogs={blogs.filter((blog) => blog.author === "mario")} title="All Mario's Blogs!" handleDelete /> */}
+            {blogs && <BlogList blogs={blogs} title="All My Blogs!" />}
+            {//! what happens is that until the blogs data in filled in the var, the frontend gets rendered which is why in the bloglist, map method is called upon null value. thats why we put an AND condition
+                // ! blogs is on the left because after left value is null, right is not encountered i.e does not get rendered
+            }
 
         </div>
     );
