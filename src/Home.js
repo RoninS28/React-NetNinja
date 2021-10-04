@@ -1,7 +1,13 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import BlogList from "./BlogList";
 
 const Home = () => {
+
+
+    const [name, setName] = useState('bunty');
+
+
+
     // blogs is an array of blogs
     const [blogs, setBlogs] = useState([
         { title: 'My new website', body: 'lorem ipsum ...', author: "mario", id: 1 },
@@ -10,11 +16,26 @@ const Home = () => {
 
     ]);
 
+    const handleDelete = (id) => {
+        const newBlogs = blogs.filter(blog => blog.id !== id);
+        setBlogs(newBlogs);
+    }
+    useEffect(() => {//this function is called whenever usestate related data is rendered. First is triggered at the start and then whenever re-rendered
+        // used for thigns such as fetch data, update elsewhere, etc
+        console.log('use effect triggered');
+    })
+    useEffect(() => {//this function is called whenever usestate related data is rendered. First is triggered at the start and then whenever re-rendered
+        // used for thigns such as fetch data, update elsewhere, etc
+        console.log('use effect triggered');
+    }, [name]);//this is called adding a dependency. If you pass empty [], then useEffect will get triggered at the beginning only
+
+    // useEffect = 
     return (
         <div className="home">
             {/* Props are used to send data from one component to another */}
-            <BlogList blogs={blogs} title="All My Blogs!" />
-            <BlogList blogs={blogs.filter((blog) => blog.author === "mario")} title="All Mario's Blogs!" />
+            <BlogList blogs={blogs} title="All My Blogs!" handleDelete={handleDelete} />
+            <button onClick={() => { setName('rohan') }}>The Name's {name}</button>
+            {/* <BlogList blogs={blogs.filter((blog) => blog.author === "mario")} title="All Mario's Blogs!" handleDelete /> */}
 
         </div>
     );
