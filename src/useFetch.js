@@ -10,7 +10,12 @@ const useFetch = (url) => {
     const [myerror, setMyError] = useState(null);
 
     useEffect(() => {
-        fetch(url).then(res => {
+
+        const abortCont = new AbortController();// we can associate it with a specific fetch request
+
+
+
+        fetch(url, { signal: abortCont.signal }).then(res => {
             if (!res.ok) {
                 throw Error('could not fetch data');
             }
@@ -22,11 +27,19 @@ const useFetch = (url) => {
             setMyError(null);//if the user hits reload after the error then reinitialise after no error is found
 
         }).catch(err => {
-            console.log(err.message);
-            setMyError(err.message);
-            setIsPending(false);
+            if (err.name === 'AbortError') {
+                console.log('fetch aborted');
+            }
+            else {
+                console.log(err.message);
+                setMyError(err.message);
+                setIsPending(false);
+
+            }
         });
-    }, []);//*here we pass an empty dependency, so that blogs are set only on initial render
+
+        return () => abortCont.abort();
+    }, [url]);//*here we pass an empty dependency, so that blogs are set only on initial render
     console.log(data);
     return { data, isPending, myerror };
 }
