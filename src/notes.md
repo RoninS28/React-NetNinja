@@ -50,3 +50,32 @@ This helps in unnnecessar fetching of data for a page when the user has moved on
 Lesson 25 Router parameters
 for dynamic links we put : in front of the variable, and then read the parameter from const { id } = useParams();
 <Link to={`blogs/${blog.id}`} > here we use [`] and not [']
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+Lesson 28 Submit events
+How to post data to the json server
+fetch('http://localhost:8000/blogs', {
+            //here we define the type of request
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newblog)
+        }
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+Lesson 30 programatic Redirects
+We use js version of MaterialPageRoute
+we import import { useHistory } from "react-router-dom";
+history = useHistory()
+and then 
+            history.push('/');
+
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+Lesson 30 Delete Blogs
+fetch('http://localhost:8000/blogs', {
+            //here we define the type of request
+            method: 'DELETE',
+        }
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+Lesson 31 404 Pages
+At the end of all the routes, we add this
+<Route path="*">{/* catches all other routes*/}
+              <NotFound />
+            </Route>
