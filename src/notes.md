@@ -46,3 +46,7 @@ what it does is that during fetch, we pass param of abortcontroller's object's s
 and at the end of useEffect, we return abort() method. Also what happens is that when fetch is not successful, error is thrown.
 so in the catch block we check whether the error message is not 'AbortError' ;
 This helps in unnnecessar fetching of data for a page when the user has moved on to another page.
+<!-- ----------------------------------------------------------------------------------------------------------------- -->
+Lesson 25 Router parameters
+for dynamic links we put : in front of the variable, and then read the parameter from const { id } = useParams();
+<Link to={`blogs/${blog.id}`} > here we use [`] and not [']

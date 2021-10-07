@@ -2,6 +2,8 @@
 
 //     const blogs = props.blogs;
 //     const title = props.title;
+import { Link } from 'react-router-dom';
+
 
 const BlogList = ({ blogs, title }) => {//whatever values passed from the parent component is onto this props object
     // props can be accessed using both ways
@@ -14,8 +16,12 @@ const BlogList = ({ blogs, title }) => {//whatever values passed from the parent
             <h3>{title}</h3>
             {blogs.map((blog) => (
                 <div className="blog-preview" key={blog.id}> {/*key is compulsory so that react can keep track of items*/}
-                    <h2>{blog.title}</h2>
-                    <p>Written by {blog.author}</p>
+
+                    <Link to={`blogs/${blog.id}`} >
+                        <h2>{blog.title}</h2>
+                        <p>Written by {blog.author}</p>
+
+                    </Link>
 
                 </div>
             ))}
