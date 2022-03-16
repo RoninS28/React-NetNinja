@@ -12,6 +12,7 @@ const BlogList = ({ blogs, title }) => {//whatever values passed from the parent
     return (
         <div className="blog-list">
             <h3>{title}</h3>
+            <h3>HELLO SHARVARI</h3>
             {blogs.map((blog) => (
                 <div className="blog-preview" key={blog.id}> {/*key is compulsory so that react can keep track of items*/}
                     <h2>{blog.title}</h2>
