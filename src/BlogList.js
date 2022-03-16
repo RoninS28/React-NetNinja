@@ -20,6 +20,8 @@ const BlogList = ({ blogs, title }) => {//whatever values passed from the parent
 
                 </div>
             ))}
+                        <h3>HELLO BHADWARI</h3>
+
 
         </div>
     );
